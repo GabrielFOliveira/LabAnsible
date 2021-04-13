@@ -1,0 +1,25 @@
+- name: RPM | Update e adicionando ephel-release 
+  raw: yum update ; yum install ephel-release
+
+- name: RPM | Instalando pacotes common
+  yum: name={{ common_packages }} state=latest install_trcommends=no
+
+- name: RPM | Configurando vim   
+  action: shell update-alternatives --set editor /usr/bin/vim.basic
+
+- name: RPM | Correcao para o defaults.vim
+  replace:
+    path: /usr/share/vim/vim81/defaults.vim
+    regexp: 'set mouse=a'
+    replace: 'set mouse-=a'
+
+- name: RPM | Desativando ipv6
+  sysctl: name=net.ipv6.conf.{{ansible_default_ipv4.interface}}.disable_ipv6 value=1 state=present reload=yes sysctl_set=yes
+  with_items:
+    - { nome: net.ipv6.conf.all.disable_ipv6, valor: 1 }
+    - { nome: net.ipv6.conf.default.disable_ipv6, valor: 1 }
+    - { nome: net.ipv6.conf.lo.disable_ipv6, valor: 1 }
+   
+- name: RPM | Reconfigurando swap de 60 para 10
+  sysctl: name=vm.swappiness value=10 state=present reload=yes sysctl_set=yes
+

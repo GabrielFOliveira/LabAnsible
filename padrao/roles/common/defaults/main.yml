@@ -24,3 +24,32 @@ common_packages_debian:
   - xz-utils
   - zip
 
+common_packages_rpm:
+  - aspell-pt-br
+  - bash-completion
+  - bc
+  - bzip2
+  - curl
+  - dnsutils
+  - dbus
+  - fping
+  - git
+  - htop
+  - less
+  - lsb-release
+  - net-tools
+  - nmap
+  - ntpdate
+  - psmisc
+  - screen
+  - sudo
+  - tree
+  - unzip
+  - vim
+  - wget
+  - xz-utils
+  - zip
+
+ 
+
+  
