@@ -1,8 +1,0 @@
-## Modelo hosts
-##nomedohost ansible_host=IP_DO_HOSTS ansible_ssh_user=USUARIO_PARA_CONEXAO ansible_ssh_password=SENHA_DO_USUARIO ansible_become=yes ansible_become_method=su ansible_become_password=SENHADOROOT
-#
-labalpine1 ansible_host=192.168.0.253 ansible_ssh_user=root ansible_ssh_password=teste@123
-
-labcentos ansible_host=192.168.0.166 ansible_ssh_user=root
-
-labdebian ansible_host=192.168.0.206 ansible_ssh_user=root 
