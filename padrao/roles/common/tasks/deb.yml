@@ -1,0 +1,31 @@
+- name: DEB | Configurando sources.list
+  template: src=sources.list dest=/etc/apt/sources.list mode=0655 owner=root group=root
+
+- name: DEB | Update e python-apt
+  raw: apt update ; apt install -y python-apt aptitude
+
+- name: DEB | Instalando pacotes common
+  apt: name={{ common_packages_debian }} state=latest install_recommends=no
+
+- name: DEB | Dash para bash 
+  shell: echo "dash dash/sh boolean false" | debconf-set-selections  && DEBIAN_FRONTEND=noninteractive /usr/sbin/dpkg-reconfigure dash
+
+- name: DEB | Configurando vim
+  action: shell update-alternatives --set editor /usr/bin/vim.basic
+
+- name: DEB | Correcao para o defaults.vim
+  replace:
+    path: /usr/share/vim/vim81/defaults.vim
+    regexp: 'set mouse=a'
+    replace: 'set mouse-=a'
+
+- name: DEB | Desativando ipv6
+  sysctl: name=net.ipv6.conf.{{ansible_default_ipv4.interface}}.disable_ipv6 value=1 state=present reload=yes sysctl_set=yes
+  with_items:
+    - { nome: net.ipv6.conf.all.disable_ipv6, valor: 1 }
+    - { nome: net.ipv6.conf.default.disable_ipv6, valor: 1 }
+    - { nome: net.ipv6.conf.lo.disable_ipv6, valor: 1 }
+
+- name: DEB | Reconfigurando swap de 60 para 10
+  sysctl: name=vm.swappiness value=10 state=present reload=yes sysctl_set=yes
+  
