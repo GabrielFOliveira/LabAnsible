@@ -1,7 +1,7 @@
 - name: Aguarde verificando conexao
   hosts: all
   remote_user: root
-  gther_facts: True
+  gather_facts: True
 
   roles:
     - common
