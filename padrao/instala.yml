@@ -1,0 +1,12 @@
+- name: Aguarde verificando conexao
+  hosts: all
+  remote_user: root
+  gther_facts: True
+
+  roles:
+    - common
+    #- nginx
+    #- node-exporter
+    #- prometheus
+    #- grafana
+    #- pgsql

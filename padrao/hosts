@@ -1,0 +1,2 @@
+## Modelo hosts
+nomedohost ansible_host=IP_DO_HOSTS ansible_ssh_user=USUARIO_PARA_CONEXAO ansible_ssh_password=SENHA_DO_USUARIO ansible_become=yes ansible_become_method=su ansible_become_password=SENHADOROOT
