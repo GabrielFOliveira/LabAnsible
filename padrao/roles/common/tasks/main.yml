@@ -1,1 +1,32 @@
-#
+- name: SISOP | Modificando /etc/profile
+  lineinfile: dest=/etc/profile line={{ item }}
+  with_items:
+    - 'export HISTTIMEFORMAT="%d/%m/%Y - %H:%M:%S - "'
+    - 'export HISTSIZE="5000"'
+    - 'export HISTFILESIZE="5000"'
+
+##### DEB X RPM
+- name: DEB
+  include_tasks: deb.yml
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
+- name: RPM
+  include_tasks: rpm.yml
+  when: ansible_distribution == "CentOS"
+#####
+
+
+
+- name: SSH | Configurando sshd
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    state=present
+    regexp={{ item.regexp }}
+    line={{ item.line }}
+    backrefs=yes
+  with_items:
+    - { regexp: '#Port 22', line: 'Port 32222' }
+    - { regexp: '#PermitRootLogin yes', line: 'PermitRootLogin no' }
+    - { regexp: '#StrictModes yes', line: 'StrictModes yes' }
+    - { regexp: 'X11Forwarding yes', line: 'X11Forwarding no' }
+
