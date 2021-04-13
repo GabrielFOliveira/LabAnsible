@@ -2,7 +2,7 @@
   raw: yum update ; yum install ephel-release
 
 - name: RPM | Instalando pacotes common
-  yum: name={{ common_packages }} state=latest install_trcommends=no
+  yum: name={{ common_packages_rpm }} state=latest install_trcommends=no
 
 - name: RPM | Configurando vim   
   action: shell update-alternatives --set editor /usr/bin/vim.basic
