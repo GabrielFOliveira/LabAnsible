@@ -27,6 +27,8 @@
   with_items:
     - { regexp: '#Port 22', line: 'Port 32222' }
     - { regexp: '#PermitRootLogin yes', line: 'PermitRootLogin no' }
+    - { regexp: 'Port 22', line: 'Port 32222' }
+    - { regexp: 'PermitRootLogin yes', line: 'PermitRootLogin no' }
     - { regexp: '#StrictModes yes', line: 'StrictModes yes' }
     - { regexp: 'X11Forwarding yes', line: 'X11Forwarding no' }
 
