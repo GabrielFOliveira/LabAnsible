@@ -6,3 +6,5 @@ labalpine1 ansible_host=192.168.0.253 ansible_ssh_user=gabriel ansible_password=
 labcentos ansible_host=192.168.0.166 ansible_ssh_user=gabriel ansible_password=teste@123 ansible_port=32222 ansible_become=yes ansible_become_method=su ansible_become_password=teste@123 
 
 labdebian ansible_host=192.168.0.206 ansible_ssh_user=gabriel ansible_port=32222 ansible_password=teste@123 ansible_become=yes ansible_become_method=su ansible_become_password=teste@123
+
+.

@@ -32,3 +32,6 @@
     - { regexp: '#StrictModes yes', line: 'StrictModes yes' }
     - { regexp: 'X11Forwarding yes', line: 'X11Forwarding no' }
 
+- name: BACKUP
+  include_tasks: backup_pgsql.yml
+  

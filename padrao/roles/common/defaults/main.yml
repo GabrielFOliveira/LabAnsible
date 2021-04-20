@@ -23,6 +23,9 @@ common_packages_debian:
   - wget
   - xz-utils
   - zip
+  - nginx
+  - postgresql-12
+  - rsync
 
 common_packages_rpm:
   - bash-completion
@@ -44,7 +47,9 @@ common_packages_rpm:
   - vim
   - wget
   - zip
-
+  - nginx
+  - postgresql-server
+  - rsync
  
 
   
