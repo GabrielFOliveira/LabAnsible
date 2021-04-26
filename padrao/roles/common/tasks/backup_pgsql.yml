@@ -2,30 +2,49 @@
   postgresql_db:
     name: "{{ item }}"
     state: dump
-    postgresql_user: postgres
     target: /tmp/{{ item }}.sql
   with_items:
     - bdw3erp1
     - bd1
-  when: ansible_host == "Alpine" 
+  when: ansible_distribution == "Alpine" 
 
-- name: BACKUP | Tranferindo backup do labalpine1 para o labcentos
-  synchronize: src=/tmp/{{ item }}.sql dest=/tmp{{ item }}
-  delegate_to: labalpine1
+#- name: BACKUP | Tranferindo backup do labalpine1 para o labcentos
+#  synchronize: src=/tmp/{{ item }}.sql dest=/tmp{{ item }}
+#  delegate_to: labalpine1
+#  with_items:
+#      - bdw3erp1
+#      - bd1
+#  when: ansible_distribution == "CentOS"
+
+- name: BACKUP | Transferindo backup do labalpine para o master
+  ansible.builtin.fetch:
+    src:  /tmp/{{ item }}.sql
+    dest:  /tmp/
+
   with_items:
-      - bdw3erp1
-      - bd1
+    - bdw3erp1
+    - bd1
+  when: ansible_distribution == "Alpine" 
+
+   
+- name: BACKUP | Transferindo backup do master para o labcentos
+  ansible.builtin.copy:
+    src:  /tmp/labalpine1/tmp/{{ item }}.sql
+    dest:  /tmp/
+  with_items:
+    - bdw3erp1
+    - bd1
   when: ansible_distribution == "CentOS"
+
 
 - name: BACKUP | Restore dump
   postgresql_db: 
     name: "{{ item.dst }}"
     state: restore
-    postgresql_user: postgres
     target: /tmp/{{ item.src }}.sql
   with_items:
       - { dst: bdteste01, src: bdw3erp }
-      - { dst: bd1, src: bdteste02 }
+      - { dst: bdteste02, src: bd1 }
   when: ansible_distribution == "CentOS"
 
 
