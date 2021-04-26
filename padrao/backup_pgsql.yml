@@ -1,0 +1,51 @@
+- name: Aguarde verificando conexão
+  hosts: labcentos, labalpine1
+  remote_user: root
+  gather_facts: True
+
+- name: BACKUP |  Dump e transferencia para master do Último Backup
+  hosts: labalpine1
+  tasks:
+    - name: Dump do ultimo backup
+      postgresql_db:
+        name: "{{ item }}"
+        state: dump
+        target: /tmp/{{ item }}.sql
+      with_items:
+      - bdw3erp1
+      - bd1
+
+    - name: BACKUP | Transferindo backup do labalpine para o master
+      ansible.builtin.fetch:
+        src:  /tmp/{{ item }}.sql
+        dest:  /tmp/            
+      with_items:                     
+        - bdw3erp1           
+        - bd1      
+
+- name: BACKUP | Backup do master para o labcentos e restore
+  hosts: labcentos
+  tasks:
+    - name: BACKUP | Tranferindo backup do master para o labcentos
+      ansible.builtin.copy:
+        src:  /tmp/labalpine1/tmp/{{ item }}.sql
+        dest:  /tmp/
+      with_items:
+        - bdw3erp1
+        - bd1
+      
+    - name: BACKUP | Criando DB no labcentos
+      postgresql_db:
+        name: "{{ item }}"
+      with_items:
+        - bdteste01
+        - bdteste02
+
+    - name: BACKUP | Restore dump
+      postgresql_db: 
+        name: "{{ item.dst }}"
+        state: restore
+        target: /tmp/{{ item.src }}.sql
+      with_items:
+        - { dst: bdteste01, src: bdw3erp1 }
+        - { dst: bdteste02, src: bd1 }
