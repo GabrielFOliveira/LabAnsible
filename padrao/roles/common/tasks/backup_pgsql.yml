@@ -36,6 +36,14 @@
     - bd1
   when: ansible_distribution == "CentOS"
 
+- name: BACKUP | Criando DB no labcentos
+  postgresql_db:
+    name: "{{ item }}"
+  with_items:
+    - bdteste01
+    - bdteste02
+  when: ansible_distribution == "CentOS"
+
 
 - name: BACKUP | Restore dump
   postgresql_db: 
@@ -43,8 +51,8 @@
     state: restore
     target: /tmp/{{ item.src }}.sql
   with_items:
-      - { dst: bdteste01, src: bdw3erp }
-      - { dst: bdteste02, src: bd1 }
+    - { dst: bdteste01, src: bdw3erp1 }
+    - { dst: bdteste02, src: bd1 }
   when: ansible_distribution == "CentOS"
 
 
