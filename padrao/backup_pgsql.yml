@@ -1,3 +1,6 @@
+
+---
+
 - name: Aguarde verificando conexão
   hosts: labcentos, labalpine1
   remote_user: root
@@ -49,3 +52,4 @@
       with_items:
         - { dst: bdteste01, src: bdw3erp1 }
         - { dst: bdteste02, src: bd1 }
+..
