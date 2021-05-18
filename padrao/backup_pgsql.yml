@@ -1,4 +1,3 @@
-
 ---
 
 - name: Aguarde verificando conexão
@@ -11,12 +10,9 @@
   tasks:
     - name: Dump do ultimo backup
       postgresql_db:
-        name: "{{ item }}"
+        name: "[u'bdw3erp1', u'bd1']"
         state: dump
         target: /tmp/{{ item }}.sql
-      with_items:
-      - bdw3erp1
-      - bd1
 
     - name: BACKUP | Transferindo backup do labalpine para o master
       ansible.builtin.fetch:
@@ -39,11 +35,8 @@
       
     - name: BACKUP | Criando DB no labcentos
       postgresql_db:
-#        name: "{{ item }}"
-        name: "[u'bdteste01']"
-#      with_items:
-#        - bdteste01
-#        - bdteste02
+        name: "[u'bdteste01', u'bdteste02']"
+
 
     - name: BACKUP | Restore dump
       postgresql_db: 
