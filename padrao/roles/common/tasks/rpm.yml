@@ -1,3 +1,5 @@
+---
+
 - name: RPM | Update  
   yum:  
     name: '*' 
@@ -32,3 +34,4 @@
 - name: RPM | Reconfigurando swap de 60 para 10
   sysctl: name=vm.swappiness value=10 state=present reload=yes sysctl_set=yes
 
+...

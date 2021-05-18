@@ -1,3 +1,5 @@
+---
+
 - name: SISOP | Modificando /etc/profile
   lineinfile: dest=/etc/profile line={{ item }}
   with_items:
@@ -31,5 +33,6 @@
     - { regexp: 'PermitRootLogin yes', line: 'PermitRootLogin no' }
     - { regexp: '#StrictModes yes', line: 'StrictModes yes' }
     - { regexp: 'X11Forwarding yes', line: 'X11Forwarding no' }
+  notify: Restart sshd
 
--
+...

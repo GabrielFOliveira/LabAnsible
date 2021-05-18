@@ -39,10 +39,11 @@
       
     - name: BACKUP | Criando DB no labcentos
       postgresql_db:
-        name: "{{ item }}"
-      with_items:
-        - bdteste01
-        - bdteste02
+#        name: "{{ item }}"
+        name: "[u'bdteste01']"
+#      with_items:
+#        - bdteste01
+#        - bdteste02
 
     - name: BACKUP | Restore dump
       postgresql_db: 
@@ -52,4 +53,4 @@
       with_items:
         - { dst: bdteste01, src: bdw3erp1 }
         - { dst: bdteste02, src: bd1 }
-..
+...
