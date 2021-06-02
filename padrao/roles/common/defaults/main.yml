@@ -24,7 +24,6 @@ common_packages_debian:
   - xz-utils
   - zip
   - nginx
-  - postgresql-12
   - rsync
 
 common_packages_rpm:
