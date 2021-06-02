@@ -1,7 +1,7 @@
 ---
 
 - name: Aguarde verificando conexão
-  hosts: labcentos, labalpine1
+  hosts: labdebian, labalpine1
   remote_user: root
   gather_facts: True
 
@@ -23,7 +23,7 @@
         - bd1      
 
 - name: BACKUP | Backup do master para o labcentos e restore
-  hosts: labcentos
+  hosts: labdebian
   tasks:
     - name: BACKUP | Tranferindo backup do master para o labcentos
       ansible.builtin.copy:
